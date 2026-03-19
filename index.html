@@ -120,13 +120,6 @@ tbody tr.tier-low { border-left: 3px solid #58D68D; }
 .tier-dot.moderate { background: #FFD93D; }
 .tier-dot.low { background: #58D68D; }
 
-/* Risk Breakdown */
-.breakdown { display: flex; gap: 2px; align-items: center; min-width: 140px; }
-.breakdown-bar { height: 14px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; min-width: 8px; }
-.breakdown-bar.td-bar { background: #3083AD; }
-.breakdown-bar.eh-bar { background: #E09422; }
-.breakdown-bar.fh-bar { background: #C44039; }
-.breakdown-labels { font-size: 10px; color: #386B83; margin-top: 2px; white-space: nowrap; }
 
 .contaminant-tag.danger { background: #FFE0E0; color: #8B0000; }
 .contaminant-tag.none { color: #CDD3D5; font-size: 12px; font-weight: 400; }
@@ -225,7 +218,6 @@ tbody tr.tier-low { border-left: 3px solid #58D68D; }
   <th data-col="t" data-type="str">Tier</th>
   <th data-col="fd" data-type="num">ASBESTOS FOUND</th>
   <th data-col="kc" data-type="str">KNOWN CONTAMINANTS</th>
-  <th>RISK BREAKDOWN</th>
 </tr>
 </thead>
 <tbody id="tbody"></tbody>
@@ -332,7 +324,6 @@ function render() {
       <td><span class="tier-badge ${tc}">${d.t}</span></td>
       <td class="${d.fd ? 'fda-yes' : 'fda-no'}">${d.fd ? 'YES (FDA)' : 'No'}</td>
       <td>${d.kc ? d.kc.split(',').map(c => '<span class="contaminant-tag danger">' + c.trim() + '</span>').join(' ') : '<span class="contaminant-tag none">No FDA data</span>'}</td>
-      <td><div class="breakdown"><span class="breakdown-bar td-bar" style="width:${d.td/40*60}px" title="Format: ${d.td}/40">${d.td > 10 ? d.td : ''}</span><span class="breakdown-bar eh-bar" style="width:${d.eh/35*60}px" title="EWG: ${d.eh}/35">${d.eh > 5 ? d.eh : ''}</span>${d.fh > 0 ? '<span class=\"breakdown-bar fh-bar\" style=\"width:' + (d.fh/25*60) + 'px\" title=\"FDA: ' + d.fh + '/25\">' + (d.fh > 5 ? d.fh : '') + '</span>' : ''}</div><div class="breakdown-labels">F:${d.td} E:${d.eh} FDA:${d.fh}</div></td>
     </tr>`;
   }
   tbody.innerHTML = html;
